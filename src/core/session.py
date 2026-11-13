@@ -16,5 +16,6 @@ def verify_session(session: SessionContext) -> bool:
     """Validate active session status."""
     if not session:
         raise AuthenticationError("Invalid session")
-    # BUG: Expiration check is missing!
+    if session.is_expired():
+        raise AuthenticationError("Session token expired")
     return True
